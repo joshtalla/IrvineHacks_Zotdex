@@ -37,3 +37,9 @@ function redirectMainPage(){
   }
   
 }
+
+entry=document.getElementById("entry");
+function cloneDex(){
+  dexclone=entry.cloneNode(true)
+  document.getElementById("grid-container").appendChild(dexclone);
+}
