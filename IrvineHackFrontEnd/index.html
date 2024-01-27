@@ -10,6 +10,38 @@
             font-family: 'Quando', serif;
 
         }
+        h1{
+            font-size: 100px
+        }
+        .grid-container{
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            
+        }
+        
+        .flex-container{
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        body{
+            background-color: #C9F8B5;
+        }
+        form{
+            text-align: center;
+        }
+
+        .input-box{
+            size: "30";
+        }
+
+        #submit{
+            color: white;
+            background-color: green;
+            border: green solid 10px;
+            border-radius: 20px;
+        }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,16 +50,27 @@
     
 </head>
 <body>
+    <div class="flex-container">
+    <div class="grid-container">
     <h1 class="gen-text">ZotDex</h1>
     
-    <form action="">
-        <label for="Username" class="gen-text">Username:</label>
-            <input type="text">
-        <p class="gen-text">Password</p>
-            <input type="text">
+    <form action="" method="post">
+
+        <label for="Username" class="gen-text">Username:</label><br>
+
+            <input class="input-box" type="text"><br><br>
+
+        <label for="Password" class="gen-text">Password:</label><br>
+
+            <input class="input-box" type="text">
+
         <br><br>
-        <input type="submit" value="Create Account">
+        <input type="submit" value="Create Account" id="submit">
+
     </form>
+
+    </div>
+    </div>
 
     
 </body>
