@@ -3,11 +3,14 @@
 var signInError=document.getElementById("error");
 var password = document.getElementById("myInput");
 var username= document.getElementById("myUsername");
+var dex; 
 
 function get_dex(){
   const req = new XMLHttpRequest();
-  req.open("GET", api/dex);
-  
+  response = req.open("GET", api/dex);
+  json_text = JSON.parse(response)
+  dex = json_text.compiled_rankings
+
 }
 
 function togglePassword() {
