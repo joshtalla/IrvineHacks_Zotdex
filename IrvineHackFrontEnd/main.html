@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZotDex Main Page</title>
+
+    <style>
+
+        #flex-container{
+            display: flex;
+            justify-content: center
+        }
+        #grid-container{
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .grid-item{
+            height: 100px;
+        }
+
+        #form{
+            grid-column: span 3;
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="flex-container">
+        <div id="grid-container">
+    
+            <h1 class="gen-text"> ZotDex</h1>
+
+            <form action="" method="post" id="form">
+
+        
+        
+                <input type="file" accept="image/*" capture="camera" >
+        
+
+                <input type="button" value="Submit" onclick = "redirectLoginPage()">
+        
+            </form>
+
+    
+            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
+            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
+            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
+        </div>
+    </div>
+
+    <script src="all.js"></script>
+</body>
+</html>

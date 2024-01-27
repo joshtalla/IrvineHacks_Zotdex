@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZotDex Login Page</title>
+
+    <style>
+        
+        h1{
+            font-size: 100px
+        }
+        
+        .grid-container{
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            
+        }
+
+        
+        .flex-container{
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        
+        form{
+            text-align: center;
+        }
+
+        .input-box{
+            size: "30";
+        }
+
+        #submit{
+            color: white;
+            background-color: green;
+            border: green solid 10px;
+            border-radius: 20px;
+            width:200px;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="flex-container">
+        
+                
+    <div class="grid-container">
+        <h1 class="gen-text">ZotDex</h1>
+            
+        <form action="/api/login" method="post">
+
+                
+            <label for="Username" class="gen-text">Username:</label><br>
+
+            <input class="input-box" type="text" id = "myUsername"><br><br>
+
+
+            <label for="Password" class="gen-text">Password:</label><br>
+
+            <input type="password" class="input-box" type="text" id="myInput"><br><br>
+
+
+            <input type="checkbox" class="gen-text" onclick="togglePassword()">Show Password<br><br><br>
+                    
+            <button type="submit" id="submit" onclick="redirectMainPage()">Create Account</button><br><br>
+            <button type="submit" id="submit" onclick="redirectMainPage()">Login</button><br><br>
+
+                    
+            <label class="input-box" id="error" style="color:red"></label>
+                
+        </form>
+
+    </div>
+    </div>
+
+    <script src="all.js"></script>
+</body>
+</html>
