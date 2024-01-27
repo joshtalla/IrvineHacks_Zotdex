@@ -11,22 +11,49 @@
             display: flex;
             justify-content: center
         }
+
+        #grid-container2{
+            display: grid;
+            grid-template-rows: 3fr 1fr 1fr;
+            justify-items: center;
+        }
         #grid-container{
             display: grid;
-            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-rows: 200px 1fr 25px 1fr;
             grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            justify-items: center;
+            row-gap: 10px;
         }
 
-        .grid-item{
+        
+        img{
             height: 100px;
         }
-
         #form{
             grid-column: span 3;
         }
 
-        #h1{
-            grid-column: span 2;
+        h1{
+            grid-column: span 3;
+            font-size: 100px
+        }
+
+
+        .grid2-item{
+            margin: auto
+        }
+
+        #file-button{
+            height: 200px;
+        }
+
+        label:hover {
+            opacity: 50%;
+        }
+
+        select{
+            grid-column-start: 3;
         }
 
     </style>
@@ -42,23 +69,38 @@
     
         <div id="grid-container">
     
-            <h1 class="gen-text" id="h1"> ZotDex</h1>
+            <h1 class="gen-text">ZotDex</h1>
 
-            <form action="" method="post" id="form">
+            <div id="form">
+                
+                <form action="" method="post">
+                    <div id="grid-container2">
+                        <div class="grid2-item" >
+                            <label for="img-src" style="display: block; text-align: center;"><img src="../assets/camera-button.png" id="file-button"></label><br>
+                            <input id="img-src" type="file" style="visibility:hidden;" accept="image/*" capture="camera" onchange="showPreview(event)">
+                        </div>
+                        <img class="grid2-item" id="preview" src=""/>
+                        <button id="submit" class="grid2-item gen-text" type="submit" onclick = "">Enslave</button>
 
-               
-        
-                <input type="file" accept="image/*" capture="camera" >
-        
+                    </div>
+                </form>
+            </div>
 
-                <input type="button" value="Submit" onclick = "redirectLoginPage()">
-        
-            </form>
-            <button onclick="cloneDex()">clone</button>
-    
-            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png" id="entry">
-            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
-            <img class="grid-item" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
+            <select name="Order" id="cars">
+                <option value="Highest to Lowest Rarity">Highest to Lowest Rarity</option>
+                <option value="Lowest to Highest Rarity">Lowest to Highest Rarity</option>
+                <option value="Newest to Oldest">Newest to Oldest</option>
+                <option value="Oldest to Newest">Oldest to Newest</option>
+            </select>
+                
+            
+
+            <button onclick="cloneDexTEST()">clone</button>
+            <div id="entry">
+            <img id="grid-img" src="../assets/pngtree-green-leaf-logo-vector-template-png-image_2132738-removebg-preview.png">
+            <p id="grid-text" class="gen-text">dsafsdaf</p>
+            </div>
+            
             
         </div>
     </div>
