@@ -1,0 +1,51 @@
+.gen-text{
+    font-family: 'Quando', serif;
+    font-size: 2vw;
+    text-align: center;
+}
+
+body{
+    background-color: #C9F8B5;
+    margin: 0;
+}
+
+.submit{
+    color: white;
+    background-color: #08ac6c;
+    border: #08ac6c solid 10px;
+    border-radius: 20px;
+    width:200px;
+}
+
+.submit:hover{
+    opacity: 50%;
+}
+
+.submit:hover:after{
+    opacity: 100%;
+}
+
+.nav-button{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #383434;
+    border: 0;
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    height:100%;
+    line-height: 75px;
+
+}
+
+.nav-button:hover{
+    background-color: #08ac6c;
+}
+
+#nav-bar{
+    display: flex;
+    grid-column: span 3;
+    background-color: #383434;
+    width: 100%;
+    justify-content: center;
+}

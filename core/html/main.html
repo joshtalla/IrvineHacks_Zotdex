@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZotDex Main Page</title>
+
+    <style>
+
+        body{
+            margin: 0;
+        }
+        #flex-container{
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        #grid-container2{
+            display: grid;
+            grid-template-rows: 2fr 1fr 1fr 1fr;
+            justify-items: center;
+        }
+        #grid-container{
+            display: grid;
+            grid-template-rows: 75px 200px 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            justify-items: center;
+            row-gap: 20px;
+            column-gap: 20px;
+            
+        }
+        
+        @media screen and (max-width: 500px){
+            #grid-container{
+                grid-template-rows: 75px 200px 1fr 200px 200px 200px;
+            }
+            
+        }
+
+        
+        img{
+            height: 100px;
+        }
+        #form{
+            grid-column: span 3;
+        }
+
+        #title{
+            grid-column: span 3;
+            font-size: 75px;
+        }
+
+
+        .grid2-item{
+            margin: auto
+        }
+
+        #file-button{
+            height: 150px;
+            
+        }
+
+        label:hover {
+            opacity: 50%;
+        }
+
+        label:hover:after{
+            opacity: 100%;
+        }
+
+        select{
+            grid-column-start: 3;
+        }
+
+        #preview{
+            width:auto;
+            height: 300px;
+            border: #08ac6c solid 5px;
+            border-radius: 50px;
+        }
+
+        #grid-img{
+            display: block; 
+            margin-left: auto; 
+            margin-right: auto; 
+            max-width: 100%; 
+            height: auto;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        #overallstats{
+            font-size: 60px;
+            font-family: "Quando", serif;
+        }
+
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body onload="cloneDexTEST()">
+    <div id="flex-container">
+    
+        <div id="grid-container">
+            <div id="nav-bar">
+                <a class="nav-button" href="profile">Home</a>
+                <a class="nav-button" id = 'ld' href="leaderboard">Leaderboard</a>
+                <a class="nav-button" id="logout" href = "logout">Log Out</a>
+                <a class="nav-button" id="logout" href = "challenges">Challenges</a>
+            </div>
+            
+            <h1 class="gen-text" id="title">ZotDex</h1>
+
+            <div id="form">
+                
+                <form action="api/capture" method="post" id="mainForm">
+                    <div id="grid-container2">
+                        <div class="grid2-item" >
+                            <label for="img-src" style="display: block; text-align: center;"><img src="{% static 'camera-button.png' %}" id="file-button"></label><br>
+                            <input name="file" id="img-src" type="file" style="visibility:hidden;" accept="image/*" capture="camera" onchange="showPreview(event)">
+                        </div>
+                        <img class="grid2-item" id="preview" src="" onerror="this.style.display='none'"/>
+                        <button id="submit1" class="grid2-item submit">Capture</button>
+                        
+                        <label id="error"></label>
+                        <label id="overallstats"></label>
+                    </div>
+                </form>
+            </div>
+                
+            
+
+            
+            <div id="entry">
+            <img id="grid-img" src="" >
+            <p id="grid-text" class="gen-text"></p>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <script src="{% static 'main.js' %}"></script>
+</body>
+</html>

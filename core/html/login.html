@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,12 @@
     <title>ZotDex Login Page</title>
 
     <style>
+        body{
+            background-image: url("{% static 'leaves.gif' %}")
+        }
         
-        h1{
-            font-size: 100px;
+        #title{
+            font-size: 70px;
         }
         
         .grid-container{
@@ -33,6 +37,14 @@
             size: "30";
         }
 
+        #label1{
+            font-size: 20px;
+        }
+
+        #label2{
+            font-size: 20px;
+        }
+
 
     
     </style>
@@ -40,32 +52,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <div class="flex-container">
         
                 
     <div class="grid-container">
-        <h1 class="gen-text">ZotDex</h1>
+        <h1 class="gen-text" id="title">ZotDex</h1>
             
-        <form action="/api/login" method="post">
+        <form action="/api/login" method="post" id="mainForm">
 
                 
-            <label name="name" for="Username" class="gen-text">Username:</label><br>
+            <label name="name" for="Username" class="gen-text" id="label1">Username:</label><br>
 
             <input class="input-box" type="text" id = "myUsername"><br><br>
 
 
-            <label name="password" for="Password" class="gen-text">Password:</label><br>
+            <label name="password" for="Password" class="gen-text" id="label2">Password:</label><br>
 
             <input type="password" class="input-box" type="text" id="myInput"><br><br>
 
 
             <input type="checkbox" class="gen-text" onclick="togglePassword()">Show Password<br><br><br>
                     
-            <button type="submit" id="submit" onclick="redirectMainPage()">Create Account</button><br><br>
-            <button type="submit" id="submit" onclick="redirectMainPage()">Login</button><br><br>
+            <button class = "submit" id="submit0">Create Account</button><br><br>
+            <button class = "submit" id="submit">Login</button><br><br>
 
                     
             <label class="input-box" id="error" style="color:red"></label>
@@ -75,6 +87,6 @@
     </div>
     </div>
 
-    <script src="all.js"></script>
+    <script src="{% static 'login.js' %}"></script>
 </body>
 </html>
