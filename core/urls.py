@@ -8,6 +8,7 @@ urlpatterns = [
     path("profile", pages.profile),
     path("logout", pages.logout),
     path("leaderboard", pages.leaderboard),
+    path("challenges", pages.challenges),
     path("api/login", pages.api_login),
     path("api/register", pages.api_register),
     path("api/capture", pages.api_capture),

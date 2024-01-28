@@ -33,35 +33,18 @@
             
         }
         .nav-button{
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: #383434;
-        border: 0;
-        color: white;
-        font-size: 15px;
-        text-decoration: none;
-        height:100%;
-        line-height: 75px;
+            padding-left: 40px;
+            padding-right: 40px;
+            background-color: #383434;
+            border: 0;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            height:100%;
+            line-height: 75px;
 
         }
 
-        @media screen and (max-width: 700px){
-            .nav-button{
-                padding-left: 20px;
-                padding-right: 20px;
-
-            }
-        }
-
-        @media screen and (max-width: 500px){
-            #grid-container{
-                grid-template-rows: 75px 200px 1fr 200px 200px 200px;
-            }
-            .nav-button{
-                font-size: 15px;
-
-            }
-        }
 
         
         img{
@@ -73,7 +56,7 @@
 
         #title{
             grid-column: span 3;
-            font-size: 75px;
+            font-size: 70px;
         }
 
 
@@ -118,6 +101,46 @@
         #overallstats{
             font-size: 40px;
             font-family: "Quando", serif;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #levels{
+            font-size: 40px;
+            font-family: "Quando", serif;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media screen and (max-width: 700px){
+            .nav-button{
+                padding-left: 20px;
+                padding-right: 20px;
+
+            }
+        }
+
+        @media screen and (max-width: 500px){
+            #grid-container{
+                grid-template-rows: 75px 200px 1fr 200px 200px 200px;
+            }
+            .nav-button{
+                font-size: 15px;
+
+            }
+            #overallstats{
+                font-size: 20px;
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            #levels{
+                font-size: 20px;
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px;
+
+            }
         }
 
     </style>
@@ -153,7 +176,10 @@
                         <button id="submit1" class="grid2-item submit">Capture</button>
                         
                         <label id="error"></label>
-                        <label id="overallstats"></label>
+                        <h2 id="overallstats"></h2>
+                        
+                        <h2 id="levels" style="margin-top: 20px; margin-bottom: 20px">op</h2>
+                        
                     </div>
                 </form>
             </div>

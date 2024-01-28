@@ -25,7 +25,7 @@ def sha256(data):
     return device.hexdigest()
 
 def relay_photo_id(file_stream, lat = None, lon = None):
-    headers = {"Api-Key": "SOmxl60bwbjppkGGbHlwzPlkNFpX2tkOvzfxZiwmtfXN6WrsdO"}
+    headers = {"Api-Key": "bybgrRvOLKnBkv9UODrjr8nCZmG2ZCKmoBpSVsTjRS5O7BctxH"}
     data = {}
     if lat is not None:
         data["lat"] = lat
@@ -68,6 +68,12 @@ def profile(req):
 def leaderboard(req):
     if validators.is_user(req):
         return render(req, "leaderboard.html")
+    else:
+        return redirect("/login")
+
+def challenges(req):
+    if validators.is_user(req):
+        return render(req, "challenges.html")
     else:
         return redirect("/login")
 
@@ -135,12 +141,13 @@ def api_capture(req):
                     if api_capture_condition(relay_score):
                         normalize_raids()
                         raid_query = models.Raid.objects.filter(active = True, objective = query)
+                        print(f"Matched {len(raid_query)} raids")
                         for raid in raid_query:
                             if str(raid.rid) not in user_query.completed_raids:
                                 completed_raids.append(raid.rid)
                                 user_query.completed_raids[raid.rid] = datetime.datetime.utcnow().timestamp()
                                 user_query.points += raid.reward
-                                while user_query.points > 0 and user_query.points > level_point_threshold(user_query.level):
+                                while user_query.points > 0 and user_query.points >= level_point_threshold(user_query.level):
                                     user_query.points -= level_point_threshold(user_query.level)
                                     user_query.level += 1
                                 raid.completions += 1
@@ -152,16 +159,21 @@ def api_capture(req):
                         completed_raids = []
                         normalize_raids()
                         raid_query = models.Raid.objects.filter(active = True, objective = query)
+                        print(f"Matched {len(raid_query)} raids")
                         for raid in raid_query:
                             if str(raid.rid) not in user_query.completed_raids:
                                 completed_raids.append(raid.rid)
                                 user_query.completed_raids[raid.rid] = datetime.datetime.utcnow().timestamp()
                                 user_query.points += raid.reward
-                                while user_query.points > 0 and user_query.points > level_point_threshold(user_query.level):
+                                while user_query.points > 0 and user_query.points >= level_point_threshold(user_query.level):
                                     user_query.points -= level_point_threshold(user_query.level)
                                     user_query.level += 1
                                 raid.completions += 1
                                 raid.save()
+                        user_query.points += 100
+                        while user_query.points > 0 and user_query.points >= level_point_threshold(user_query.level):
+                            user_query.points -= level_point_threshold(user_query.level)
+                            user_query.level += 1
                         user_query.save()
                         user_query.ownership_rankings[query.hid] = {"ranking": query.ranking_top + 1, "timestamp": datetime.datetime.utcnow().timestamp()}
                         user_query.ownership_count += 1
@@ -205,6 +217,10 @@ def api_capture(req):
                             grade = models.Harvest.Grade.EXTERNAL,
                             ranking_top = 1
                         )
+                        user_query.points += 200
+                        while user_query.points > 0 and user_query.points >= level_point_threshold(user_query.level):
+                            user_query.points -= level_point_threshold(user_query.level)
+                            user_query.level += 1
                         user_query.ownership_rankings[constant_query.value] = {"ranking": 1, "timestamp": datetime.datetime.utcnow().timestamp()}
                         user_query.ownership_count += 1
                         user_query.last_activity_capture = datetime.datetime.utcnow()
@@ -246,7 +262,7 @@ def api_dex(req):
                 each_data["ranking_timestamp"] = user_rankings[str(each.hid)]["timestamp"]
                 each_data["total_ranking"] = each.ranking_top
                 compiled_dex.append(each_data)
-        return JsonResponse({"status": True, "self": "user" not in req.POST, "total": len(query), "dex": compiled_dex})
+        return JsonResponse({"status": True, "self": "user" not in req.POST, "level": user_query.level, "points": user_query.points, "total": len(query), "dex": compiled_dex})
     except:
         return status_response(False, "Database access error")
 

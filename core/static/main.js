@@ -9,20 +9,21 @@ function capture(event){
         if (resp.status){
           if (resp.capture===true){
             captureSuccess();
-            window.history.pushState();
           }
           else if(resp.capture===false){
             captureFailure();
+
           }
+          
         }
         }
+        location.reload();
       }
     let formdata = new FormData(document.getElementById("mainForm"));
       
     req.open("POST", "api/capture", true);
     //req.setRequestHeader("Content-Type", "multipart/form-data");
     req.send(formdata);
-    location.reload()
     }
   document.getElementById("submit1").addEventListener("click", capture);
   document.getElementById("mainForm").addEventListener("submit", function(e){e.preventDefault();});
@@ -33,7 +34,8 @@ function capture(event){
       if (req.status === 200){
         let object = JSON.parse(req.response);
         document.getElementById("overallstats").innerHTML=object.dex.length+"/"+object.total+" of known UCI plant species found";
-        
+        document.getElementById("levels").innerHTML="Level: "+object.level+ ", XP: "+object.points+"/"+object.level*100;
+
         for(var index = 0; index < object.dex.length; index++){
           document.getElementById("grid-img").src = object.dex[index].picture;
           var rarity="("+object.dex[index].ranking+"/"+object.dex[index].total_ranking+")";
@@ -46,13 +48,13 @@ function capture(event){
             dexclone.style.display="block";
             document.getElementById("grid-container").appendChild(dexclone);
           }
+        
       }
     }
   }
   req.open("POST", "api/dex", true);
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   req.send();
-  
   }
 
 
