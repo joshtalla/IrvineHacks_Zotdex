@@ -76,7 +76,7 @@ def api_login(req):
         validators.is_post(req),
         validators.is_not_user(req),
         validators.matched_params(req, ["name", "password"])
-    ]):
+    ]) or not validators.username(req.POST["name"]) or not validators.password(req.POST["password"]):
         return HttpResponseBadRequest()
     
     try:
@@ -94,7 +94,7 @@ def api_register(req):
         validators.is_post(req),
         validators.is_not_user(req),
         validators.matched_params(req, ["name", "password"])
-    ]):
+    ]) or not validators.username(req.POST["name"]) or not validators.password(req.POST["password"]):
         return HttpResponseBadRequest()
     
     try:
@@ -108,11 +108,7 @@ def api_register(req):
         return status_response(True)
 
 def api_capture_condition(score):
-    return True #TODO MUST REMOVE
-    if score < 0.4:
-        return False
-    else:
-        return random.random() < (25 / 9) * (score - 0.4) ** 2
+    return True
 
 def api_capture(req):
     if not all([
@@ -135,16 +131,45 @@ def api_capture(req):
             try:
                 user_query = models.User.objects.get(uid = req.session["user"])
                 if query.hid in user_query.ownership_rankings:
-                    return JsonResponse({"status": True, "captured": True, "result": "duplicate", "dex": query.hid})
+                    completed_raids = []
+                    if api_capture_condition(relay_score):
+                        normalize_raids()
+                        raid_query = models.Raid.objects.filter(active = True, objective = query)
+                        for raid in raid_query:
+                            if str(raid.rid) not in user_query.completed_raids:
+                                completed_raids.append(raid.rid)
+                                user_query.completed_raids[raid.rid] = datetime.datetime.utcnow().timestamp()
+                                user_query.points += raid.reward
+                                while user_query.points > 0 and user_query.points > level_point_threshold(user_query.level):
+                                    user_query.points -= level_point_threshold(user_query.level)
+                                    user_query.level += 1
+                                raid.completions += 1
+                                raid.save()
+                        user_query.save()
+                    return JsonResponse({"status": True, "captured": True, "result": "duplicate", "dex": query.hid, "raids": completed_raids})
                 else:
                     if api_capture_condition(relay_score):
+                        completed_raids = []
+                        normalize_raids()
+                        raid_query = models.Raid.objects.filter(active = True, objective = query)
+                        for raid in raid_query:
+                            if str(raid.rid) not in user_query.completed_raids:
+                                completed_raids.append(raid.rid)
+                                user_query.completed_raids[raid.rid] = datetime.datetime.utcnow().timestamp()
+                                user_query.points += raid.reward
+                                while user_query.points > 0 and user_query.points > level_point_threshold(user_query.level):
+                                    user_query.points -= level_point_threshold(user_query.level)
+                                    user_query.level += 1
+                                raid.completions += 1
+                                raid.save()
+                        user_query.save()
                         user_query.ownership_rankings[query.hid] = {"ranking": query.ranking_top + 1, "timestamp": datetime.datetime.utcnow().timestamp()}
                         user_query.ownership_count += 1
                         user_query.last_activity_capture = datetime.datetime.utcnow()
                         query.ranking_top += 1
                         user_query.save()
                         query.save()
-                        return JsonResponse({"status": True, "captured": True, "result": "success", "dex": query.hid, "ranking": user_query.ownership_rankings[query.hid]})
+                        return JsonResponse({"status": True, "captured": True, "result": "success", "dex": query.hid, "ranking": user_query.ownership_rankings[query.hid], "raids": completed_raids})
                     else:
                         return JsonResponse({"status": True, "captured": False, "result": "rejected"})
             except:
@@ -235,10 +260,6 @@ def api_user(req):
     
     try:
         query = models.User.objects.get(uid = req.session["user"] if "user" not in req.POST else req.POST["user"])
-        while query.points > 0 and query.points > level_point_threshold(query.level):
-            query.points -= level_point_threshold(query.level)
-            query.level += 1
-        query.save()
         user_data = {}
         user_data["uid"] = query.uid
         user_data["name"] = query.profile_name
@@ -248,6 +269,13 @@ def api_user(req):
         return JsonResponse({"status": True, "self": "user" not in req.POST, "profile": user_data})
     except:
         return status_response(False, "Database access error")
+
+def normalize_raids():
+    query = models.Raid.objects.filter(active = True)
+    for raid in query:
+        if datetime.datetime.utcnow().timestamp() > raid.start.timestamp() + raid.duration * 60:
+            raid.active = False
+            raid.save()
     
 def api_raids(req):
     if not all([
@@ -258,29 +286,30 @@ def api_raids(req):
         return HttpResponseBadRequest()
     
     try:
-        query = models.Raids.objects.filter(active = True)
+        normalize_raids()
+        query = models.Raid.objects.filter(active = True)
+        user_query = models.User.objects.get(uid = req.session["user"])
         compiled_raids = []
         for raid in query:
-            if datetime.datetime.utcnow().timestamp() > raid.start.timestamp() + raid.duration * 60:
-                raid.active = False
-                raid.save()
-            else:
+            if str(raid.rid) not in user_query.completed_raids:
                 raid_data = {}
                 raid_data["rid"] = raid.rid
                 raid_data["start"] = raid.start.timestamp()
                 raid_data["end"] = raid.start.timestamp() + raid.duration * 60
                 raid_data["duration_minutes"] = raid.duration
                 raid_data["completions"] = raid.completions
+                raid_data["reward"] = raid.reward
                 objective_data = {}
-                objective_data["hid"] = raid_data.objective.hid
-                objective_data["name"] = raid_data.objective.name
-                objective_data["picture"] = settings.STATIC_URL + "images/" + raid_data.objective.picture + ".jpg"
-                objective_data["grade"] = raid_data.objective.grade
-                objective_data["type"] = raid_data.objective.type
+                objective_data["hid"] = raid.objective.hid
+                objective_data["name"] = raid.objective.name
+                objective_data["picture"] = settings.STATIC_URL + "images/" + raid.objective.picture + ".jpg"
+                objective_data["grade"] = raid.objective.grade
+                objective_data["type"] = raid.objective.type
                 raid_data["objective"] = objective_data
                 compiled_raids.append(raid_data)
         return JsonResponse({"status": True, "data": compiled_raids})
-    except:
+    except Exception as e:
+        print(e)
         return status_response(False, "Database error")
 
 def api_leaderboard_by_count(req):
@@ -313,6 +342,5 @@ def api_leaderboard_by_count(req):
             each_data["picture"] = query_page[i].picture
             ranking_data.append(each_data)
         return JsonResponse({"status": True, "page": page + 1, "size": RANKING_PAGE_SIZE, "self": {"name": own_name, "place": own_place, "count": own_count}, "table": ranking_data})
-    except Exception as e:
-        print(e)
+    except:
         return status_response(False, "Database access error")

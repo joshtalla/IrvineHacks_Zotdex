@@ -13,3 +13,9 @@ def is_user(req):
 
 def is_not_user(req):
     return "user" not in req.session
+
+def username(string):
+    return 3 <= len(string) <= 32
+
+def password(string):
+    return 8 <= len(string) <= 32

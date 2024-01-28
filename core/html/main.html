@@ -32,12 +32,35 @@
             column-gap: 20px;
             
         }
-        
+        .nav-button{
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: #383434;
+        border: 0;
+        color: white;
+        font-size: 15px;
+        text-decoration: none;
+        height:100%;
+        line-height: 75px;
+
+        }
+
+        @media screen and (max-width: 700px){
+            .nav-button{
+                padding-left: 20px;
+                padding-right: 20px;
+
+            }
+        }
+
         @media screen and (max-width: 500px){
             #grid-container{
                 grid-template-rows: 75px 200px 1fr 200px 200px 200px;
             }
-            
+            .nav-button{
+                font-size: 15px;
+
+            }
         }
 
         
@@ -93,7 +116,7 @@
         }
 
         #overallstats{
-            font-size: 60px;
+            font-size: 40px;
             font-family: "Quando", serif;
         }
 
@@ -112,8 +135,8 @@
             <div id="nav-bar">
                 <a class="nav-button" href="profile">Home</a>
                 <a class="nav-button" id = 'ld' href="leaderboard">Leaderboard</a>
+                <a class="nav-button" id="challenges" href = "challenges">Challenges</a>
                 <a class="nav-button" id="logout" href = "logout">Log Out</a>
-                <a class="nav-button" id="logout" href = "challenges">Challenges</a>
             </div>
             
             <h1 class="gen-text" id="title">ZotDex</h1>
@@ -139,8 +162,8 @@
 
             
             <div id="entry">
-            <img id="grid-img" src="" >
-            <p id="grid-text" class="gen-text"></p>
+                <img id="grid-img" src="" >
+                <p id="grid-text" class="gen-text"></p>
             </div>
             
             

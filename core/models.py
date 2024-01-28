@@ -9,8 +9,9 @@ class User(models.Model):
     ownership_rankings = models.JSONField(default = dict)
     ownership_count = models.IntegerField(default = 0)
     last_activity_capture = models.DateTimeField(auto_now_add = True)
-    level = models.PositiveIntegerField(default = 0)
+    level = models.PositiveIntegerField(default = 1)
     points = models.IntegerField(default = 0)
+    completed_raids = models.JSONField(default = dict)
 
 class IntConstant(models.Model):
     key = models.CharField(max_length = 20, primary_key = True)
@@ -45,3 +46,4 @@ class Raid(models.Model):
     objective = models.ForeignKey(Harvest, models.CASCADE)
     completions = models.IntegerField(default = 0)
     active = models.BooleanField(default = True)
+    reward = models.IntegerField(default = 0)

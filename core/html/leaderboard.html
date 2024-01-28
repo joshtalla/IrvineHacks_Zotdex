@@ -14,6 +14,32 @@
         font-family: 
         'Quando', serif;
     }
+    .nav-button{
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: #383434;
+        border: 0;
+        color: white;
+        font-size: 15px;
+        text-decoration: none;
+        height:100%;
+        line-height: 75px;
+
+    }
+    @media screen and (max-width: 700px){
+        .nav-button{
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+    }
+
+    @media screen and (max-width: 500px){
+        .nav-button{
+            font-size: 15px;
+
+        }
+    }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +52,7 @@
 <div id="nav-bar">
     <a class="nav-button" href="profile">Home</a>
     <a class="nav-button" id = 'ld' href="leaderboard">Leaderboard</a>
+    <a class="nav-button" id="challenges" href = "challenges">Challenges</a>
     <a class="nav-button" id="logout" href = "logout">Log Out</a>
 </div>
 
@@ -33,10 +60,10 @@
 
 
 <div class="center">
-<h1 style="font-size:50px">Leaderboard</h1>
+<h1 style="font-size:70px">Leaderboard</h1>
 <ol id="leaderboard"><li>name</li></ol>
 <p id="dots">...</p>
-<ol id="userplace" start="200" style="font-size: 20px"><li>You</li><p>
+<ol id="userplace" start="200" style="font-size: 35px"><li>You</li><p>
 </div>
 
 </body

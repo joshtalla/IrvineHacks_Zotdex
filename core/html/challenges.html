@@ -3,8 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZotDex Main Page</title>
+    <title>Challenges</title>
+
+    <style>
+        h1{
+            font-family: "Quando", serif;
+        }
+        .flex-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .raid-box{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #08ac6c;
+            width: 90%;
+            margin: 20px 5px;
+            border-radius: 25px;
+            height: 200px;
+            
+        }
+
+        .raid-box img{
+            height: 160px;
+            margin-left: 20px;
+            border-radius: 50%;
+
+        }
+        
+        .raid-box div{
+            margin-left: 50px;
+        }
+
+        .adjust{
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-family: "Quando", serif;
+        }
+
+        .adjust h2{
+            grid-column: span 5;
+        }
+
+        #drop{
+            visibility: hidden;
+        }
+
+        .nav-button{
+            padding-left: 40px;
+            padding-right: 40px;
+            background-color: #383434;
+            border: 0;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            height:100%;
+            line-height: 75px;
+
+        }
+        @media screen and (max-width: 1000px){
+            .adjust{
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-family: "Quando", serif;
+        }
+
+        .adjust h2{
+            grid-column: span 3;
+        }
+        
+        #playcomp{
+            grid-column: span 2;
+        }
+        }
+
+        @media screen and (max-width: 700px){
+            .adjust{
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-family: "Quando", serif;
+        }
+        
+        .adjust h2{
+            grid-column: span 2;
+        }
+        
+        #playcomp{
+            grid-column: span 2;
+        }
+
+        .raid-box{
+            height: 300px;
+        }
+        .nav-button{
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+        }
+
+        @media screen and (max-width: 500px){
+            .raid-box div{
+                margin-left: 25px;
+            }
+            .adjust{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            font-family: "Quando", serif;
+            }
+
+            .raid-box{
+                height: 400px;
+            }
+            .nav-button{
+            font-size: 15px;
+
+        }
+
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <div id="nav-bar">
+        
+        <a class="nav-button" href="profile">Home</a>
+        <a class="nav-button" id = 'ld' href="leaderboard">Leaderboard</a>
+        <a class="nav-button" id="challenges" href = "challenges">Challenges</a>
+        <a class="nav-button" id="logout" href = "logout">Log Out</a>
+        
+    </div>
+
+    <div class="flex-container">
+        <h1>Challenges</h1>
+        <div class="raid-box">
+            <img id=plant-img src="../assets/Green-leaves-logo-1.png"/>
+            
+            <div class="adjust">
+                <h2 id="plant-name">name of plant</h2>
+                <p id="start">Start: </p>
+                <p id="end">End: </p>
+                <p id="duration">Duration: </p>
+                <p id="rewards">Rewards: </p>
+                <p id="playcomp">Player Completions: </p>
+                
+            </div>
+            
+            
+        </div>
+        <div class="raid-box">asdf</div>
+        <div class="raid-box">asdf</div>
+    </div>
 </body>
 </html>

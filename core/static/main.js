@@ -22,6 +22,7 @@ function capture(event){
     req.open("POST", "api/capture", true);
     //req.setRequestHeader("Content-Type", "multipart/form-data");
     req.send(formdata);
+    location.reload()
     }
   document.getElementById("submit1").addEventListener("click", capture);
   document.getElementById("mainForm").addEventListener("submit", function(e){e.preventDefault();});

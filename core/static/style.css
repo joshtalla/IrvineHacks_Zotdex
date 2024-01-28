@@ -25,18 +25,6 @@ body{
     opacity: 100%;
 }
 
-.nav-button{
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: #383434;
-    border: 0;
-    color: white;
-    font-size: 15px;
-    text-decoration: none;
-    height:100%;
-    line-height: 75px;
-
-}
 
 .nav-button:hover{
     background-color: #08ac6c;

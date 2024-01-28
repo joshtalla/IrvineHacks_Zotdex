@@ -44,4 +44,3 @@ function leaderboard(){
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     req.send()
     }
-document.getElementById("ld").addEventListener("click", leaderboard);
